@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    
+    <!-- App Properties -->
+    <ApplicationTitle>Sync Manager</ApplicationTitle>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <Company>Your Company</Company>
+    <Product>Sync Manager</Product>
+    <Description>Automated folder sync with backup versioning</Description>
+    <AssemblyName>SyncManager</AssemblyName>
+    <RootNamespace>SyncManager</RootNamespace>
+    
+    <!-- Publishing Properties -->
+    <PublishProfile>FolderProfile</PublishProfile>
+  </PropertyGroup>
+
+  <!-- Resource embedding -->
+  <ItemGroup>
+    <Resource Include="Resources\**\*" />
+  </ItemGroup>
+
+</Project>

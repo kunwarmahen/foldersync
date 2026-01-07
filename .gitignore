@@ -1,0 +1,95 @@
+# .NET Build outputs
+bin/
+obj/
+publish/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
+
+# Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Rider
+.idea/
+*.sln.iml
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin
+$RECYCLE.BIN/
+
+# Mac OS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+
+# Application-specific
+*.log
+.claude/
+
+# Temporary documentation files (from development)
+00-READ-ME-FIRST.txt
+*-READ-ME-*.txt
+AUTO-SYNC-FEATURE.md
+BUILD-GUIDE.md
+BUILD-SUMMARY.txt
+ERROR-FIX-SUMMARY.md
+FEATURES.md
+FILE-MANIFEST.txt
+FINAL-FIX-SUMMARY.md
+QUICK-REFERENCE.md
+QUICK-START.md
+UBUNTU-BUILD-GUIDE.md
+UBUNTU-QUICK-REFERENCE.md
+UBUNTU-SETUP.txt
+START-HERE.md
