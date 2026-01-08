@@ -74,6 +74,18 @@ namespace SyncManager
                 SetupSystemTray();
 
                 _logService.LogInfo("Application started", "System");
+
+                // Run initial sync for auto-sync enabled profiles
+                RunInitialSyncsAsync();
+
+                // Handle StartMinimized setting
+                var settings = _configService.LoadSettings();
+                if (settings.StartMinimized)
+                {
+                    this.WindowState = WindowState.Minimized;
+                    this.Hide();
+                    _logService.LogInfo("Application started minimized to system tray", "System");
+                }
             }
             catch (Exception ex)
             {
@@ -125,6 +137,36 @@ namespace SyncManager
             catch (Exception ex)
             {
                 _logService.LogError($"Failed to load profiles: {ex.Message}", "System");
+            }
+        }
+
+        private async void RunInitialSyncsAsync()
+        {
+            // Run initial sync for all profiles with auto-sync enabled
+            // This ensures that when the app starts (e.g., from system tray on boot),
+            // it syncs any changes that occurred while the app was not running
+            await Task.Delay(20000); // Give the app 2 seconds to fully initialize
+
+            var autoSyncProfiles = _syncProfiles.Where(p => p.AutoSyncEnabled).ToList();
+            if (autoSyncProfiles.Count == 0)
+                return;
+
+            _logService.LogInfo($"Running initial sync for {autoSyncProfiles.Count} auto-sync profile(s)", "System");
+
+            foreach (var profile in autoSyncProfiles)
+            {
+                if (!_syncInProgress) // Only run if no other sync is in progress
+                {
+                    _logService.LogInfo("Running initial sync on startup", profile.Name);
+                    ExecuteSync(profile, dryRun: false);
+
+                    // Wait for sync to complete before starting next one
+                    await Task.Delay(1000);
+                    while (_syncInProgress)
+                    {
+                        await Task.Delay(500);
+                    }
+                }
             }
         }
 
@@ -305,6 +347,9 @@ namespace SyncManager
                     profile.Status = "Auto-Sync Active";
                 }
 
+                // Run initial sync if requested
+                bool runSyncNow = RunSyncNowCheckBox.IsChecked ?? false;
+
                 // Clear inputs
                 ProfileNameTextBox.Clear();
                 SourceFolderTextBox.Clear();
@@ -312,9 +357,16 @@ namespace SyncManager
                 BackupFolderTextBox.Clear();
                 BackupVersionsTextBox.Text = "3";
                 AutoSyncCheckBox.IsChecked = true;
+                RunSyncNowCheckBox.IsChecked = true;
 
                 _logService.LogInfo($"Profile created: {profile.Name}", "System");
                 MessageBox.Show("Profile created successfully!");
+
+                // Execute initial sync if checkbox was checked
+                if (runSyncNow)
+                {
+                    ExecuteSync(profile, dryRun: false);
+                }
             }
             catch (Exception ex)
             {

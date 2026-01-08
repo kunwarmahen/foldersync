@@ -136,6 +136,9 @@
                                     <!-- Auto-Sync Checkbox -->
                                     <CheckBox x:Name="AutoSyncCheckBox" Grid.Row="5" Grid.Column="1" Content="Enable Auto-Sync (monitor folder for changes)" Margin="0,0,0,10" IsChecked="True"/>
 
+                                    <!-- Run Now Checkbox -->
+                                    <CheckBox x:Name="RunSyncNowCheckBox" Grid.Row="5" Grid.Column="1" Content="Run initial sync immediately after creating profile" Margin="0,30,0,10" IsChecked="True"/>
+
                                     <!-- Buttons -->
                                     <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Button Content="Create Profile" Click="CreateProfile_Click" Width="120"/>
